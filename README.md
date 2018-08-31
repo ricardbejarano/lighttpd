@@ -1,4 +1,6 @@
-# Lighttpd (`ricardbejarano/lighttpd:latest`)
+# Lighttpd
+
+<p align=right><code>docker pull ricardbejarano/lighttpd</code></p>
 
 Minimal multi-stage Docker image of the Lighttpd web server.
 
