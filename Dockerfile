@@ -1,7 +1,7 @@
 FROM debian:stretch AS build
 
-ARG LIGHTTPD_VERSION="1.4.52"
-ARG LIGHTTPD_CHECKSUM="0f9de0227681c078f6b8c6154b581ced5fe7bcb5ff428ccf292581764b771145"
+ARG LIGHTTPD_VERSION="1.4.53"
+ARG LIGHTTPD_CHECKSUM="423b3951f212e3a30511eb86f4662a1848c6e857074289ff23fc310eef520266"
 
 WORKDIR /tmp
 ADD https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-$LIGHTTPD_VERSION.tar.gz /tmp/lighttpd.tar.gz
