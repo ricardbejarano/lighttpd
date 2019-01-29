@@ -1,5 +1,0 @@
-services:
-  - docker
-script:
-  - docker build -t lighttpd .
-  - docker run lighttpd /lighttpd -v
