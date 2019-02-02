@@ -20,4 +20,4 @@ Mount your **content** on the container's `/www` folder.
 
 ## License
 
-See [LICENSE](LICENSE).
+See [LICENSE](https://github.com/ricardbejarano/lighttpd/blob/master/LICENSE).
