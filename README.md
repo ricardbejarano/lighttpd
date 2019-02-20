@@ -4,18 +4,88 @@
 
 Available at [`ricardbejarano/lighttpd`](https://hub.docker.com/r/ricardbejarano/lighttpd).
 
+## Tags
+
+[`1.4.53-glibc`, `1.4.53`, `glibc`, `latest` *(glibc/Dockerfile)*](https://github.com/ricardbejarano/lighttpd/blob/master/glibc/Dockerfile)
+
+[`1.4.53-musl`, `musl` *(musl/Dockerfile)*](https://github.com/ricardbejarano/lighttpd/blob/master/musl/Dockerfile)
+
 
 ## Features
 
-* Super tiny (only `9MB`)
+* Super tiny (`glibc`-based is `~3.41MB` and `musl`-based is `~2.98MB`)
 * Built from source
-* Based on the official `gcr.io/distroless/base` image
-* Included `lighttpd.conf` optimized for performance and security
-
+* Built from `scratch`, see the [Filesystem](#Filesystem) section below for an exhaustive list of the image's contents
+* Included `lighttpd.conf` optimized for secure and performant static file serving
+* Reduced attack surface (no `bash`, no UNIX tools, no package manager...)
 
 ## Volumes
 
-Mount your **content** on the container's `/www` folder.
+Mount your **content** in `/etc/lighttpd/html`.
+
+
+## Filesystem
+
+The images' contents are:
+
+### `glibc`
+
+Based on the [glibc](https://www.gnu.org/software/libc/) implementation of `libc`.
+
+```
+/
+├── etc/
+│   ├── group
+│   ├── lighttpd/
+│   │   ├── html/
+│   │   │   └── index.html
+│   │   └── lighttpd.conf
+│   └── passwd
+├── lib/
+│   └── x86_64-linux-gnu/
+│       ├── libc.so.6
+│       ├── libdl.so.2
+│       └── libnss_files.so.2
+├── lib64/
+│   └── ld-linux-x86-64.so.2
+├── lighttpd
+├── tmp/
+│   └── .keep
+└── usr/
+    └── local/
+        └── lib/
+            ├── mod_dirlisting.so
+            ├── mod_indexfile.so
+            └── mod_staticfile.so
+```
+
+### `musl`
+
+Based on the [musl](https://www.musl-libc.org/) implementation of `libc`.
+
+```
+/
+├── etc/
+│   ├── group
+│   ├── lighttpd/
+│   │   ├── html/
+│   │   │   └── index.html
+│   │   └── lighttpd.conf
+│   └── passwd
+├── lib/
+│   ├── ld-musl-x86_64.so.1
+│   ├── libc.musl-x86_64.so.1
+│   └── libz.so.1.2.11
+├── lighttpd
+├── tmp/
+│   └── .keep
+└── usr/
+    └── local/
+        └── lib/
+            ├── mod_dirlisting.so
+            ├── mod_indexfile.so
+            └── mod_staticfile.so
+```
 
 
 ## License
