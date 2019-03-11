@@ -9,13 +9,13 @@ ARG LIGHTTPD_CONFIG="\
 
 ADD https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-$LIGHTTPD_VERSION.tar.gz /tmp/lighttpd.tar.gz
 
-WORKDIR /tmp
-RUN if [ "$LIGHTTPD_CHECKSUM" != "$(sha256sum /tmp/lighttpd.tar.gz | awk '{print $1}')" ]; then exit 1; fi && \
+RUN cd /tmp && \
+    if [ "$LIGHTTPD_CHECKSUM" != "$(sha256sum /tmp/lighttpd.tar.gz | awk '{print $1}')" ]; then exit 1; fi && \
     tar xf /tmp/lighttpd.tar.gz && \
     mv /tmp/lighttpd-$LIGHTTPD_VERSION /tmp/lighttpd
 
-WORKDIR /tmp/lighttpd
-RUN apt update && \
+RUN cd /tmp/lighttpd && \
+    apt update && \
     apt install -y gcc make && \
     sed -i -E 's/(pwd|grp)->(pw_uid|gr_gid) == 0/0/' src/server.c && \
     ./configure $LIGHTTPD_CONFIG && \
