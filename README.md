@@ -20,6 +20,7 @@ Available at [`ricardbejarano/lighttpd`](https://hub.docker.com/r/ricardbejarano
 * Included `lighttpd.conf` optimized for secure and performant static file serving
 * Reduced attack surface (no `bash`, no UNIX tools, no package manager...)
 
+
 ## Volumes
 
 Mount your **content** in `/etc/lighttpd/html`.
