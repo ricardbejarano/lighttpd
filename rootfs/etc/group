@@ -1,1 +1,1 @@
-root:x:0:
+lighttpd:*:100:lighttpd
