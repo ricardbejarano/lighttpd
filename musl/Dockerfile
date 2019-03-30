@@ -16,7 +16,6 @@ RUN cd /tmp && \
 
 RUN cd /tmp/lighttpd && \
     apk add gcc g++ make && \
-    sed -i -E 's/(pwd|grp)->(pw_uid|gr_gid) == 0/0/' src/server.c && \
     ./configure $LIGHTTPD_CONFIG && \
     make
 
