@@ -21,6 +21,25 @@ Available at [`ricardbejarano/lighttpd`](https://hub.docker.com/r/ricardbejarano
 * Reduced attack surface (no `bash`, no UNIX tools, no package manager...)
 
 
+## Building
+
+To build the `glibc`-based image:
+
+```bash
+$ git clone https://github.com/ricardbejarano/lighttpd
+$ cd lighttpd
+$ docker build -t lighttpd:glibc -f glibc/Dockerfile .
+```
+
+To build the `musl`-based image:
+
+```bash
+$ git clone https://github.com/ricardbejarano/lighttpd
+$ cd lighttpd
+$ docker build -t lighttpd:musl -f musl/Dockerfile .
+```
+
+
 ## Volumes
 
 Mount your **content** in `/etc/lighttpd/html`.
