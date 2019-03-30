@@ -38,8 +38,6 @@ RUN apk add gcc g++ make && \
 
 FROM scratch
 
-COPY rootfs /
-
 COPY --from=build /lib/ld-musl-x86_64.so.1 \
                   /lib/libc.musl-x86_64.so.1 \
                   /lib/libz.so.1.2.11 \
@@ -50,6 +48,8 @@ COPY --from=build /tmp/lighttpd/src/.libs/mod_indexfile.so \
                   /tmp/lighttpd/src/.libs/mod_staticfile.so \
                   /usr/local/lib/
 COPY --from=build /tmp/lighttpd/src/lighttpd /lighttpd
+
+COPY rootfs /
 
 STOPSIGNAL SIGTERM
 

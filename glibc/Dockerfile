@@ -39,8 +39,6 @@ RUN apt update && \
 
 FROM scratch
 
-COPY rootfs /
-
 COPY --from=build /lib/x86_64-linux-gnu/libc.so.6 \
                   /lib/x86_64-linux-gnu/libdl.so.2 \
                   /lib/x86_64-linux-gnu/libnss_files.so.2 \
@@ -53,6 +51,8 @@ COPY --from=build /tmp/lighttpd/src/.libs/mod_indexfile.so \
                   /tmp/lighttpd/src/.libs/mod_staticfile.so \
                   /usr/local/lib/
 COPY --from=build /tmp/lighttpd/src/lighttpd /lighttpd
+
+COPY rootfs /
 
 STOPSIGNAL SIGTERM
 
