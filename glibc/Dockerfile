@@ -17,7 +17,6 @@ RUN cd /tmp && \
 RUN cd /tmp/lighttpd && \
     apt update && \
     apt install -y gcc make && \
-    sed -i -E 's/(pwd|grp)->(pw_uid|gr_gid) == 0/0/' src/server.c && \
     ./configure $LIGHTTPD_CONFIG && \
     make
 
