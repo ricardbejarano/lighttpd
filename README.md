@@ -15,7 +15,7 @@ Available at [`ricardbejarano/lighttpd`](https://hub.docker.com/r/ricardbejarano
 ## Features
 
 * Super tiny (`glibc`-based is `~3.41MB` and `musl`-based is `~2.98MB`)
-* Built from source
+* Built from source, including libraries
 * Built from `scratch`, see the [Filesystem](#Filesystem) section below for an exhaustive list of the image's contents
 * Included `lighttpd.conf` optimized for secure and performant static file serving
 * Reduced attack surface (no `bash`, no UNIX tools, no package manager...)
@@ -47,7 +47,8 @@ Based on the [glibc](https://www.gnu.org/software/libc/) implementation of `libc
 │   └── x86_64-linux-gnu/
 │       ├── libc.so.6
 │       ├── libdl.so.2
-│       └── libnss_files.so.2
+│       ├── libnss_files.so.2
+│       └── libpcre.so.1
 ├── lib64/
 │   └── ld-linux-x86-64.so.2
 ├── lighttpd
@@ -77,6 +78,7 @@ Based on the [musl](https://www.musl-libc.org/) implementation of `libc`.
 ├── lib/
 │   ├── ld-musl-x86_64.so.1
 │   ├── libc.musl-x86_64.so.1
+│   ├── libpcre.so.1
 │   └── libz.so.1.2.11
 ├── lighttpd
 ├── tmp/

@@ -1,23 +1,39 @@
 FROM alpine AS build
 
+ARG PCRE_VERSION="8.43"
+ARG PCRE_CHECKSUM="0b8e7465dc5e98c757cc3650a20a7843ee4c3edf50aaf60bb33fd879690d2c73"
+
+ARG ZLIB_VERSION="1.2.11"
+ARG ZLIB_CHECKSUM="c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1"
+
 ARG LIGHTTPD_VERSION="1.4.53"
 ARG LIGHTTPD_CHECKSUM="423b3951f212e3a30511eb86f4662a1848c6e857074289ff23fc310eef520266"
-ARG LIGHTTPD_CONFIG="\
-    --without-pcre \
-    --without-zlib \
-    --without-bzip2"
 
+ADD https://ftp.pcre.org/pub/pcre/pcre-$PCRE_VERSION.tar.gz /tmp/pcre.tar.gz
+ADD https://zlib.net/zlib-$ZLIB_VERSION.tar.gz /tmp/zlib.tar.gz
 ADD https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-$LIGHTTPD_VERSION.tar.gz /tmp/lighttpd.tar.gz
 
 RUN cd /tmp && \
+    if [ "$PCRE_CHECKSUM" != "$(sha256sum /tmp/pcre.tar.gz | awk '{print $1}')" ]; then exit 1; fi && \
+    tar xf /tmp/pcre.tar.gz && \
+    if [ "$ZLIB_CHECKSUM" != "$(sha256sum /tmp/zlib.tar.gz | awk '{print $1}')" ]; then exit 1; fi && \
+    tar xf /tmp/zlib.tar.gz && \
     if [ "$LIGHTTPD_CHECKSUM" != "$(sha256sum /tmp/lighttpd.tar.gz | awk '{print $1}')" ]; then exit 1; fi && \
     tar xf /tmp/lighttpd.tar.gz && \
     mv /tmp/lighttpd-$LIGHTTPD_VERSION /tmp/lighttpd
 
-RUN cd /tmp/lighttpd && \
-    apk add gcc g++ make && \
-    ./configure $LIGHTTPD_CONFIG && \
-    make
+RUN apk add gcc g++ make && \
+    cd /tmp/pcre-$PCRE_VERSION && \
+      ./configure && \
+      make && \
+      make install && \
+    cd /tmp/zlib-$ZLIB_VERSION && \
+      ./configure && \
+      make && \
+      make install && \
+    cd /tmp/lighttpd && \
+      ./configure --without-bzip2 && \
+      make
 
 
 FROM scratch
@@ -27,6 +43,7 @@ COPY rootfs /
 COPY --from=build /lib/ld-musl-x86_64.so.1 \
                   /lib/libc.musl-x86_64.so.1 \
                   /lib/libz.so.1.2.11 \
+                  /usr/local/lib/libpcre.so.1 \
                   /lib/
 COPY --from=build /tmp/lighttpd/src/.libs/mod_indexfile.so \
                   /tmp/lighttpd/src/.libs/mod_dirlisting.so \
