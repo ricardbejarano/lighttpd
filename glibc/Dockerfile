@@ -33,10 +33,10 @@ RUN apt update && \
       make && \
       make install && \
     cd /tmp/lighttpd && \
-      CFLAGS="-D_FORTIFY_SOURCE=1 -fstack-protector-all" \
-      LDFLAGS="-Wl,-z,relro,-z,now" \
       ./configure --without-bzip2 && \
-      make
+      make \
+        CFLAGS="-fstack-protector-all" \
+        LDFLAGS="-z relro -z now"
 
 
 FROM scratch
