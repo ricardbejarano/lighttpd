@@ -94,7 +94,7 @@ Other examples:
 
 ## Volumes
 
-Mount your **content** in `/etc/lighttpd/html`.
+- Bind your **configuration file** at `/etc/lighttpd/lighttpd.conf`.
 
 
 ## Filesystem
