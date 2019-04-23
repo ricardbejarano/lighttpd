@@ -56,7 +56,7 @@ To check whether a binary in a container image has those mitigations enabled, us
 ```
 usage: checksec.sh docker_image executable_path
 
-Docker-based wrapper for checksec.sh.
+Container-based wrapper for checksec.sh.
 Requires a running Docker daemon.
 
 Example:
@@ -66,7 +66,7 @@ Example:
   Extracts the '/lighttpd' binary from the 'ricardbejarano/lighttpd:glibc' image,
   downloads checksec (github.com/slimm609/checksec.sh) and runs it on the
   binary.
-  Everything runs inside Docker containers.
+  Everything runs inside containers.
 ```
 
 #### Example:
