@@ -1,5 +1,5 @@
 <p align=center><img src=https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/apple/155/satellite_1f6f0.png width=120px></p>
-<h1 align=center>lighttpd (Docker image)</h1>
+<h1 align=center>lighttpd (container image)</h1>
 <p align=center>Built-from-source container image of the <a href=https://www.lighttpd.net/>Lighttpd HTTP server</a></p>
 
 Available at [`ricardbejarano/lighttpd`](https://hub.docker.com/r/ricardbejarano/lighttpd).
@@ -39,7 +39,7 @@ docker build -t lighttpd:musl -f musl/Dockerfile .
 
 ## Security
 
-This image attempts to build a secure Lighttpd Docker image.
+This image attempts to build a secure Lighttpd container image.
 
 It does so by the following ways:
 
@@ -49,7 +49,7 @@ It does so by the following ways:
 
 ### Verifying the presence of exploit mitigations
 
-To check whether a binary in a Docker image has those mitigations enabled, use [tests/checksec.sh](https://github.com/ricardbejarano/lighttpd/blob/master/tests/checksec.sh).
+To check whether a binary in a container image has those mitigations enabled, use [tests/checksec.sh](https://github.com/ricardbejarano/lighttpd/blob/master/tests/checksec.sh).
 
 #### Usage
 
@@ -84,7 +84,7 @@ Full RELRO   Canary found   NX enabled   PIE enabled   No RPATH   No RUNPATH   1
 Cleaning up...Done!
 ```
 
-This wrapper script works with any binary in a Docker image. Feel free to use it with any other image.
+This wrapper script works with any binary in a container image. Feel free to use it with any other image.
 
 Other examples:
 
