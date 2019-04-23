@@ -103,7 +103,7 @@ The images' contents are:
 
 ### `glibc`
 
-Based on the [glibc](https://www.gnu.org/software/libc/) implementation of `libc`.
+Based on the [glibc](https://www.gnu.org/software/libc/) implementation of `libc`. Dynamically linked.
 
 ```
 /
@@ -135,7 +135,7 @@ Based on the [glibc](https://www.gnu.org/software/libc/) implementation of `libc
 
 ### `musl`
 
-Based on the [musl](https://www.musl-libc.org/) implementation of `libc`.
+Based on the [musl](https://www.musl-libc.org/) implementation of `libc`. Dynamically linked.
 
 ```
 /
