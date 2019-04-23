@@ -27,17 +27,13 @@ Available at [`ricardbejarano/lighttpd`](https://hub.docker.com/r/ricardbejarano
 To build the `glibc`-based image:
 
 ```bash
-$ git clone https://github.com/ricardbejarano/lighttpd
-$ cd lighttpd
-$ docker build -t lighttpd:glibc -f glibc/Dockerfile .
+docker build -t lighttpd:glibc -f glibc/Dockerfile .
 ```
 
 To build the `musl`-based image:
 
 ```bash
-$ git clone https://github.com/ricardbejarano/lighttpd
-$ cd lighttpd
-$ docker build -t lighttpd:musl -f musl/Dockerfile .
+docker build -t lighttpd:musl -f musl/Dockerfile .
 ```
 
 
