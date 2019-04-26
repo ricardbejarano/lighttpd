@@ -53,4 +53,5 @@ COPY rootfs /
 
 STOPSIGNAL SIGTERM
 
-CMD ["/lighttpd", "-D", "-f", "/etc/lighttpd/lighttpd.conf"]
+ENTRYPOINT ["/lighttpd"]
+CMD ["-D", "-f", "/etc/lighttpd/lighttpd.conf"]
