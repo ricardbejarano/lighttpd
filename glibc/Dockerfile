@@ -56,7 +56,9 @@ COPY --from=build /tmp/lighttpd/src/lighttpd /lighttpd
 
 COPY rootfs /
 
+USER lighttpd:lighttpd
+WORKDIR /
+EXPOSE 80/tcp
 STOPSIGNAL SIGTERM
-
 ENTRYPOINT ["/lighttpd"]
 CMD ["-D", "-f", "/etc/lighttpd/lighttpd.conf"]
