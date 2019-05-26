@@ -30,6 +30,13 @@ Available on [Quay](https://quay.io) as:
 * Built with exploit mitigations enabled (see [Security](#Security))
 
 
+## Configuration
+
+### Volumes
+
+- Bind your **configuration file** at `/etc/lighttpd/lighttpd.conf`.
+
+
 ## Building
 
 To build the `glibc`-based image:
@@ -98,11 +105,6 @@ Other examples:
 
 - `bash tests/checksec.sh debian /bin/bash`
 - `bash tests/checksec.sh alpine /bin/sh`
-
-
-## Volumes
-
-- Bind your **configuration file** at `/etc/lighttpd/lighttpd.conf`.
 
 
 ## Filesystem
