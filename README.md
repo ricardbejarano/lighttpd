@@ -24,10 +24,10 @@ Available on [Quay](https://quay.io) as:
 
 * Super tiny (`glibc`-based is `~2.94MB` and `musl`-based is `~3.58MB`)
 * Built from source, including libraries
-* Built from `scratch`, see the [Filesystem](#Filesystem) section below for an exhaustive list of the image's contents
+* Built from `scratch`, see the [Filesystem](#filesystem) section below for an exhaustive list of the image's contents
 * Included `lighttpd.conf` optimized for secure and performant static file serving
 * Reduced attack surface (no `bash`, no UNIX tools, no package manager...)
-* Built with exploit mitigations enabled (see [Security](#Security))
+* Built with exploit mitigations enabled (see [Security](#security))
 
 
 ## Configuration
@@ -59,7 +59,7 @@ This image attempts to build a secure Lighttpd container image.
 It does so by the following ways:
 
 - downloading and verifying the source code of Lighttpd and every library it is built with,
-- packaging the image with only those files required during runtime (see [Filesystem](#Filesystem)),
+- packaging the image with only those files required during runtime (see [Filesystem](#filesystem)),
 - by enforcing a series of exploit mitigations (PIE, full RELRO, full SSP, NX and Fortify)
 
 ### Verifying the presence of exploit mitigations
@@ -94,8 +94,8 @@ Downloading ricardbejarano/lighttpd:glibc...Done!
 Extracting ricardbejarano/lighttpd:glibc:/lighttpd...Done!
 Downloading checksec.sh...Done!
 Running checksec.sh:
-RELRO        STACK CANARY   NX           PIE           RPATH      RUNPATH      Symbols         FORTIFY   Fortified   Fortifiable   FILE
-Full RELRO   Canary found   NX enabled   PIE enabled   No RPATH   No RUNPATH   1133 Symbols    Yes       0           20            /tmp/.checksec-fRo4rDWP
+RELRO        STACK CANARY   NX           PIE           RPATH      RUNPATH      Symbols        FORTIFY   Fortified   Fortifiable   FILE
+Full RELRO   Canary found   NX enabled   PIE enabled   No RPATH   No RUNPATH   1133 Symbols   Yes       0           20            /tmp/.checksec-fRo4rDWP
 Cleaning up...Done!
 ```
 
