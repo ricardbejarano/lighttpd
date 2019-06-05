@@ -46,13 +46,12 @@ COPY --from=build /lib/x86_64-linux-gnu/libc.so.6 \
                   /lib/x86_64-linux-gnu/libnss_files.so.2 \
                   /usr/local/lib/libpcre.so.1 \
                   /lib/x86_64-linux-gnu/
-COPY --from=build /lib64/ld-linux-x86-64.so.2 \
-                  /lib64/
+COPY --from=build /lib64/ld-linux-x86-64.so.2 /lib64/
 COPY --from=build /tmp/lighttpd/src/.libs/mod_indexfile.so \
                   /tmp/lighttpd/src/.libs/mod_dirlisting.so \
                   /tmp/lighttpd/src/.libs/mod_staticfile.so \
                   /usr/local/lib/
-COPY --from=build /tmp/lighttpd/src/lighttpd /lighttpd
+COPY --from=build /tmp/lighttpd/src/lighttpd /
 
 COPY rootfs /
 

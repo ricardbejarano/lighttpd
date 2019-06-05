@@ -47,7 +47,7 @@ COPY --from=build /tmp/lighttpd/src/.libs/mod_indexfile.so \
                   /tmp/lighttpd/src/.libs/mod_dirlisting.so \
                   /tmp/lighttpd/src/.libs/mod_staticfile.so \
                   /usr/local/lib/
-COPY --from=build /tmp/lighttpd/src/lighttpd /lighttpd
+COPY --from=build /tmp/lighttpd/src/lighttpd /
 
 COPY rootfs /
 
