@@ -50,7 +50,6 @@ COPY --from=build /tmp/lighttpd/src/lighttpd /
 
 COPY rootfs /
 
-WORKDIR /
 EXPOSE 80/tcp
 STOPSIGNAL SIGTERM
 ENTRYPOINT ["/lighttpd"]
