@@ -13,13 +13,12 @@ ADD https://ftp.pcre.org/pub/pcre/pcre-$PCRE_VERSION.tar.gz /tmp/pcre.tar.gz
 ADD https://zlib.net/zlib-$ZLIB_VERSION.tar.gz /tmp/zlib.tar.gz
 ADD https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-$LIGHTTPD_VERSION.tar.gz /tmp/lighttpd.tar.gz
 
-RUN cd /tmp && \
-    if [ "$PCRE_CHECKSUM" != "$(sha256sum /tmp/pcre.tar.gz | awk '{print $1}')" ]; then exit 1; fi && \
-    tar xf /tmp/pcre.tar.gz && \
+RUN if [ "$PCRE_CHECKSUM" != "$(sha256sum /tmp/pcre.tar.gz | awk '{print $1}')" ]; then exit 1; fi && \
+    tar -C /tmp -xf /tmp/pcre.tar.gz && \
     if [ "$ZLIB_CHECKSUM" != "$(sha256sum /tmp/zlib.tar.gz | awk '{print $1}')" ]; then exit 1; fi && \
-    tar xf /tmp/zlib.tar.gz && \
+    tar -C /tmp -xf /tmp/zlib.tar.gz && \
     if [ "$LIGHTTPD_CHECKSUM" != "$(sha256sum /tmp/lighttpd.tar.gz | awk '{print $1}')" ]; then exit 1; fi && \
-    tar xf /tmp/lighttpd.tar.gz && \
+    tar -C /tmp -xf /tmp/lighttpd.tar.gz && \
     mv /tmp/lighttpd-$LIGHTTPD_VERSION /tmp/lighttpd
 
 RUN apt update && \
