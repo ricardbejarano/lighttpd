@@ -39,8 +39,8 @@ Available on [Quay](https://quay.io) as:
 
 ## Building
 
-- To build the `glibc`-based image: `$ docker build -t lighttpd:glibc -f glibc/Dockerfile .`
-- To build the `musl`-based image: `$ docker build -t lighttpd:musl -f musl/Dockerfile .`
+- To build the `glibc`-based image: `$ docker build -t lighttpd:glibc -f Dockerfile.glibc .`
+- To build the `musl`-based image: `$ docker build -t lighttpd:musl -f Dockerfile.musl .`
 
 
 ## Filesystem
