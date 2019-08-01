@@ -35,25 +35,30 @@ RUN apt update && \
       ./configure --without-bzip2 && \
       make \
         CFLAGS="-fstack-protector-all" \
-        LDFLAGS="-z relro -z now"
+        LDFLAGS="-z relro -z now" && \
+    echo "nogroup:*:100:nobody" > /tmp/group && \
+    echo "nobody:*:100:100:::" > /tmp/passwd && \
+    mkdir -p /tmp/tmp
 
 
 FROM scratch
 
-COPY --from=build /lib/x86_64-linux-gnu/libc.so.6 \
-                  /lib/x86_64-linux-gnu/libdl.so.2 \
-                  /lib/x86_64-linux-gnu/libnss_files.so.2 \
-                  /usr/local/lib/libpcre.so.1 \
-                  /lib/x86_64-linux-gnu/
-COPY --from=build /lib64/ld-linux-x86-64.so.2 /lib64/
-COPY --from=build /tmp/lighttpd/src/.libs/mod_indexfile.so \
-                  /tmp/lighttpd/src/.libs/mod_dirlisting.so \
-                  /tmp/lighttpd/src/.libs/mod_staticfile.so \
-                  /usr/local/lib/
-COPY --from=build /tmp/lighttpd/src/lighttpd /
+COPY --from=build --chown=100:100 /tmp/lighttpd/src/lighttpd /
+COPY --from=build --chown=100:100 /tmp/tmp /tmp
+COPY --from=build --chown=100:100 /tmp/lighttpd/src/.libs/mod_indexfile.so \
+                                  /tmp/lighttpd/src/.libs/mod_dirlisting.so \
+                                  /tmp/lighttpd/src/.libs/mod_staticfile.so \
+                                  /usr/local/lib/
+COPY --from=build --chown=100:100 /lib/x86_64-linux-gnu/libc.so.6 \
+                                  /lib/x86_64-linux-gnu/libdl.so.2 \
+                                  /lib/x86_64-linux-gnu/libnss_files.so.2 \
+                                  /usr/local/lib/libpcre.so.1 \
+                                  /lib/x86_64-linux-gnu/
+COPY --from=build --chown=100:100 /lib64/ld-linux-x86-64.so.2 /lib64/
+COPY --from=build --chown=100:100 /tmp/group \
+                                  /tmp/passwd \
+                                  /etc/
 
-COPY rootfs /
-
-EXPOSE 80/tcp
+USER 100:100
 ENTRYPOINT ["/lighttpd"]
-CMD ["-D", "-f", "/etc/lighttpd/lighttpd.conf"]
+CMD ["-D", "-f", "/lighttpd.conf"]

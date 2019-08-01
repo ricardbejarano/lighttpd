@@ -1,6 +1,6 @@
-<p align=center><img src=https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/apple/155/satellite_1f6f0.png width=120px></p>
-<h1 align=center>lighttpd (container image)</h1>
-<p align=center>Built-from-source container image of the <a href=https://www.lighttpd.net/>Lighttpd HTTP server</a></p>
+<p align="center"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/apple/155/satellite_1f6f0.png" width="120px"></p>
+<h1 align="center">lighttpd (container image)</h1>
+<p align="center">Built-from-source container image of the <a href="https://www.lighttpd.net/">Lighttpd HTTP server</a></p>
 
 
 ## Tags
@@ -22,19 +22,18 @@ Available on [Quay](https://quay.io) as:
 
 ## Features
 
-* Super tiny (`glibc`-based is `~2.94MB` and `musl`-based is `~3.57MB`)
-* Compiled from source during build time
-* Built `FROM scratch`, see [Filesystem](#filesystem) for an exhaustive list of the image's contents
-* Included `lighttpd.conf` optimized for secure and performant static file server
+* Super tiny (`glibc`-based image is about `3.21MB`, `musl`-based image is about `3.53MB`)
+* Compiled from source (with binary exploit mitigations) during build time
+* Built `FROM scratch`, with zero bloat (see [Filesystem](#filesystem))
 * Reduced attack surface (no shell, no UNIX tools, no package manager...)
-* Built with binary exploit mitigations enabled
+* Runs as unprivileged (non-`root`) user
 
 
 ## Configuration
 
 ### Volumes
 
-- Bind your **configuration** at `/etc/lighttpd/lighttpd.conf`.
+- Mount your **configuration** at `/lighttpd.conf`.
 
 
 ## Building
@@ -45,8 +44,6 @@ Available on [Quay](https://quay.io) as:
 
 ## Filesystem
 
-The images' contents are:
-
 ### `glibc`
 
 Based on the [glibc](https://www.gnu.org/software/libc/) implementation of `libc`. Dynamically linked.
@@ -55,10 +52,6 @@ Based on the [glibc](https://www.gnu.org/software/libc/) implementation of `libc
 /
 ├── etc/
 │   ├── group
-│   ├── lighttpd/
-│   │   ├── html/
-│   │   │   └── index.html
-│   │   └── lighttpd.conf
 │   └── passwd
 ├── lib/
 │   └── x86_64-linux-gnu/
@@ -70,7 +63,6 @@ Based on the [glibc](https://www.gnu.org/software/libc/) implementation of `libc
 │   └── ld-linux-x86-64.so.2
 ├── lighttpd
 ├── tmp/
-│   └── .keep
 └── usr/
     └── local/
         └── lib/
@@ -81,16 +73,12 @@ Based on the [glibc](https://www.gnu.org/software/libc/) implementation of `libc
 
 ### `musl`
 
-Based on the [musl](https://www.musl-libc.org/) implementation of `libc`. Dynamically linked.
+Based on the [musl](https://www.musl-libc.org/) implementation of `libc`. Statically linked.
 
 ```
 /
 ├── etc/
 │   ├── group
-│   ├── lighttpd/
-│   │   ├── html/
-│   │   │   └── index.html
-│   │   └── lighttpd.conf
 │   └── passwd
 ├── lib/
 │   ├── ld-musl-x86_64.so.1
@@ -99,7 +87,6 @@ Based on the [musl](https://www.musl-libc.org/) implementation of `libc`. Dynami
 │   └── libz.so.1.2.11
 ├── lighttpd
 ├── tmp/
-│   └── .keep
 └── usr/
     └── local/
         └── lib/

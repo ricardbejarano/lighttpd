@@ -32,24 +32,29 @@ RUN apk add gcc g++ make && \
       make install && \
     cd /tmp/lighttpd && \
       ./configure --without-bzip2 && \
-      make
+      make && \
+    echo "nogroup:*:100:nobody" > /tmp/group && \
+    echo "nobody:*:100:100:::" > /tmp/passwd && \
+    mkdir -p /tmp/tmp
 
 
 FROM scratch
 
-COPY --from=build /lib/ld-musl-x86_64.so.1 \
-                  /lib/libc.musl-x86_64.so.1 \
-                  /lib/libz.so.1.2.11 \
-                  /usr/local/lib/libpcre.so.1 \
-                  /lib/
-COPY --from=build /tmp/lighttpd/src/.libs/mod_indexfile.so \
-                  /tmp/lighttpd/src/.libs/mod_dirlisting.so \
-                  /tmp/lighttpd/src/.libs/mod_staticfile.so \
-                  /usr/local/lib/
-COPY --from=build /tmp/lighttpd/src/lighttpd /
+COPY --from=build --chown=100:100 /tmp/lighttpd/src/lighttpd /
+COPY --from=build --chown=100:100 /tmp/tmp /tmp
+COPY --from=build --chown=100:100 /tmp/lighttpd/src/.libs/mod_indexfile.so \
+                                  /tmp/lighttpd/src/.libs/mod_dirlisting.so \
+                                  /tmp/lighttpd/src/.libs/mod_staticfile.so \
+                                  /usr/local/lib/
+COPY --from=build --chown=100:100 /lib/ld-musl-x86_64.so.1 \
+                                  /lib/libc.musl-x86_64.so.1 \
+                                  /lib/libz.so.1.2.11 \
+                                  /usr/local/lib/libpcre.so.1 \
+                                  /lib/
+COPY --from=build --chown=100:100 /tmp/group \
+                                  /tmp/passwd \
+                                  /etc/
 
-COPY rootfs /
-
-EXPOSE 80/tcp
+USER 100:100
 ENTRYPOINT ["/lighttpd"]
-CMD ["-D", "-f", "/etc/lighttpd/lighttpd.conf"]
+CMD ["-D", "-f", "/lighttpd.conf"]
