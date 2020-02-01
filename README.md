@@ -9,15 +9,15 @@
 
 Available on [Docker Hub](https://hub.docker.com) as [`ricardbejarano/lighttpd`](https://hub.docker.com/r/ricardbejarano/lighttpd):
 
-- [`1.4.54-glibc`, `1.4.54`, `glibc`, `master`, `latest` *(Dockerfile.glibc)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.glibc) (about `3.21MB`)
-- [`1.4.54-musl`, `musl` *(Dockerfile.musl)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.musl) (about `3.53MB`)
+- [`1.4.55-glibc`, `1.4.55`, `glibc`, `master`, `latest` *(Dockerfile.glibc)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.glibc) (about `3.21MB`)
+- [`1.4.55-musl`, `musl` *(Dockerfile.musl)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.musl) (about `3.53MB`)
 
 ### Quay
 
 Available on [Quay](https://quay.io) as:
 
-- [`quay.io/ricardbejarano/lighttpd-glibc`](https://quay.io/repository/ricardbejarano/lighttpd-glibc), tags: [`1.4.54`, `master`, `latest` *(Dockerfile.glibc)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.glibc) (about `3.21MB`)
-- [`quay.io/ricardbejarano/lighttpd-musl`](https://quay.io/repository/ricardbejarano/lighttpd-musl), tags: [`1.4.54`, `master`, `latest` *(Dockerfile.musl)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.musl) (about `3.53MB`)
+- [`quay.io/ricardbejarano/lighttpd-glibc`](https://quay.io/repository/ricardbejarano/lighttpd-glibc), tags: [`1.4.55`, `master`, `latest` *(Dockerfile.glibc)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.glibc) (about `3.21MB`)
+- [`quay.io/ricardbejarano/lighttpd-musl`](https://quay.io/repository/ricardbejarano/lighttpd-musl), tags: [`1.4.55`, `master`, `latest` *(Dockerfile.musl)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.musl) (about `3.53MB`)
 
 
 ## Features
