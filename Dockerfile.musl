@@ -6,22 +6,20 @@ ARG PCRE_CHECKSUM="aecafd4af3bd0f3935721af77b889d9024b2e01d96b58471bd91a3063fb47
 ARG ZLIB_VERSION="1.2.11"
 ARG ZLIB_CHECKSUM="c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1"
 
-ARG LIGHTTPD_VERSION="1.4.55"
-ARG LIGHTTPD_CHECKSUM="065259fb618774df516add13df22a52cac76a8f59e4561f143fe3ec810f4a03a"
+ARG VERSION="1.4.55"
+ARG CHECKSUM="065259fb618774df516add13df22a52cac76a8f59e4561f143fe3ec810f4a03a"
 
 ADD https://ftp.pcre.org/pub/pcre/pcre-$PCRE_VERSION.tar.gz /tmp/pcre.tar.gz
 ADD https://zlib.net/zlib-$ZLIB_VERSION.tar.gz /tmp/zlib.tar.gz
-ADD https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-$LIGHTTPD_VERSION.tar.gz /tmp/lighttpd.tar.gz
+ADD https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-$VERSION.tar.gz /tmp/lighttpd.tar.gz
 
 RUN [ "$PCRE_CHECKSUM" = "$(sha256sum /tmp/pcre.tar.gz | awk '{print $1}')" ] && \
     [ "$ZLIB_CHECKSUM" = "$(sha256sum /tmp/zlib.tar.gz | awk '{print $1}')" ] && \
-    [ "$LIGHTTPD_CHECKSUM" = "$(sha256sum /tmp/lighttpd.tar.gz | awk '{print $1}')" ] && \
+    [ "$CHECKSUM" = "$(sha256sum /tmp/lighttpd.tar.gz | awk '{print $1}')" ] && \
     tar -C /tmp -xf /tmp/pcre.tar.gz && \
     tar -C /tmp -xf /tmp/zlib.tar.gz && \
     tar -C /tmp -xf /tmp/lighttpd.tar.gz && \
-    mv /tmp/lighttpd-$LIGHTTPD_VERSION /tmp/lighttpd
-
-RUN apk add gcc g++ make && \
+    apk add gcc g++ make && \
     cd /tmp/pcre-$PCRE_VERSION && \
       ./configure && \
       make && \
@@ -30,30 +28,26 @@ RUN apk add gcc g++ make && \
       ./configure && \
       make && \
       make install && \
-    cd /tmp/lighttpd && \
+    cd /tmp/lighttpd-$VERSION && \
       ./configure --without-bzip2 && \
-      make && \
-    echo "nogroup:*:100:nobody" > /tmp/group && \
-    echo "nobody:*:100:100:::" > /tmp/passwd && \
-    mkdir -p /tmp/tmp
+      make
+
+RUN mkdir -p /rootfs/etc /rootfs/lib /rootfs/usr/local/lib /rootfs/tmp && \
+    cp /tmp/lighttpd-$VERSION/src/lighttpd /rootfs/ && \
+    cp \
+      /lib/ld-musl-x86_64.so.1 \
+      /lib/libc.musl-x86_64.so.1 \
+      /lib/libz.so.1.2.11 \
+      /usr/local/lib/libpcre.so.1 \
+      /rootfs/lib/ && \
+    cp /tmp/lighttpd-$VERSION/src/.libs/*.so /rootfs/usr/local/lib/ && \
+    echo "nogroup:*:100:nobody" > /rootfs/etc/group && \
+    echo "nobody:*:100:100:::" > /rootfs/etc/passwd
 
 
 FROM scratch
 
-COPY --from=build --chown=100:100 /tmp/lighttpd/src/lighttpd /
-COPY --from=build --chown=100:100 /tmp/tmp /tmp
-COPY --from=build --chown=100:100 /tmp/lighttpd/src/.libs/mod_indexfile.so \
-                                  /tmp/lighttpd/src/.libs/mod_dirlisting.so \
-                                  /tmp/lighttpd/src/.libs/mod_staticfile.so \
-                                  /usr/local/lib/
-COPY --from=build --chown=100:100 /lib/ld-musl-x86_64.so.1 \
-                                  /lib/libc.musl-x86_64.so.1 \
-                                  /lib/libz.so.1.2.11 \
-                                  /usr/local/lib/libpcre.so.1 \
-                                  /lib/
-COPY --from=build --chown=100:100 /tmp/group \
-                                  /tmp/passwd \
-                                  /etc/
+COPY --from=build --chown=100:100 /rootfs /
 
 USER 100:100
 ENTRYPOINT ["/lighttpd"]

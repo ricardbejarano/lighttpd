@@ -9,15 +9,15 @@
 
 Available on [Docker Hub](https://hub.docker.com) as [`ricardbejarano/lighttpd`](https://hub.docker.com/r/ricardbejarano/lighttpd):
 
-- [`1.4.55-glibc`, `1.4.55`, `glibc`, `master`, `latest` *(Dockerfile.glibc)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.glibc) (about `3.21MB`)
-- [`1.4.55-musl`, `musl` *(Dockerfile.musl)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.musl) (about `3.53MB`)
+- [`1.4.55-glibc`, `1.4.55`, `glibc`, `master`, `latest` *(Dockerfile.glibc)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.glibc) (about `4.08MB`)
+- [`1.4.55-musl`, `musl` *(Dockerfile.musl)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.musl) (about `5.69MB`)
 
 ### Quay
 
 Available on [Quay](https://quay.io) as:
 
-- [`quay.io/ricardbejarano/lighttpd-glibc`](https://quay.io/repository/ricardbejarano/lighttpd-glibc), tags: [`1.4.55`, `master`, `latest` *(Dockerfile.glibc)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.glibc) (about `3.21MB`)
-- [`quay.io/ricardbejarano/lighttpd-musl`](https://quay.io/repository/ricardbejarano/lighttpd-musl), tags: [`1.4.55`, `master`, `latest` *(Dockerfile.musl)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.musl) (about `3.53MB`)
+- [`quay.io/ricardbejarano/lighttpd`](https://quay.io/repository/ricardbejarano/lighttpd), [`quay.io/ricardbejarano/lighttpd-glibc`](https://quay.io/repository/ricardbejarano/lighttpd-glibc), tags: [`1.4.55`, `master`, `latest` *(Dockerfile.glibc)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.glibc) (about `4.08MB`)
+- [`quay.io/ricardbejarano/lighttpd-musl`](https://quay.io/repository/ricardbejarano/lighttpd-musl), tags: [`1.4.55`, `master`, `latest` *(Dockerfile.musl)*](https://github.com/ricardbejarano/lighttpd/blob/master/Dockerfile.musl) (about `5.69MB`)
 
 
 ## Features
@@ -66,9 +66,9 @@ Based on the [glibc](https://www.gnu.org/software/libc/) implementation of `libc
 └── usr/
     └── local/
         └── lib/
-            ├── mod_dirlisting.so
-            ├── mod_indexfile.so
-            └── mod_staticfile.so
+            ├── mod_access.so
+            ├──  ...
+            └── mod_wstunnel.so
 ```
 
 ### `musl`
@@ -90,9 +90,9 @@ Based on the [musl](https://www.musl-libc.org/) implementation of `libc`. Static
 └── usr/
     └── local/
         └── lib/
-            ├── mod_dirlisting.so
-            ├── mod_indexfile.so
-            └── mod_staticfile.so
+            ├── mod_access.so
+            ├──  ...
+            └── mod_wstunnel.so
 ```
 
 
