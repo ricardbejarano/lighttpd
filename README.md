@@ -20,13 +20,13 @@
 
 Available on Docker Hub as [`docker.io/ricardbejarano/lighttpd`](https://hub.docker.com/r/ricardbejarano/lighttpd):
 
-- [`1.4.64`, `latest` *(Dockerfile)*](Dockerfile)
+- [`1.4.65`, `latest` *(Dockerfile)*](Dockerfile)
 
 ### RedHat Quay
 
 Available on RedHat Quay as [`quay.io/ricardbejarano/lighttpd`](https://quay.io/repository/ricardbejarano/lighttpd):
 
-- [`1.4.64`, `latest` *(Dockerfile)*](Dockerfile)
+- [`1.4.65`, `latest` *(Dockerfile)*](Dockerfile)
 
 
 ## Configuration
