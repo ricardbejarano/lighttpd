@@ -1,7 +1,7 @@
 FROM alpine:3 AS build
 
-ARG VERSION="1.4.66"
-ARG CHECKSUM="d919c3f9031e2580b94b311a3749eaa1e3b4a6a57b2d5c4cbcad40c0a73a7200"
+ARG VERSION="1.4.67"
+ARG CHECKSUM="de3c783a0ec3459e7e36a5ef08e13482d8640b339570dd036dfd456a6f7bb312"
 
 ADD https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-$VERSION.tar.gz /tmp/lighttpd.tar.gz
 
